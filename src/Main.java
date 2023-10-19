@@ -34,7 +34,6 @@ public class Main {
         Datastore datastore = new Datastore();
         try {
             datastore.getCatalog(EMPLOYEE_CATALOG_FILE);
-            //TODO: Automatically get work hours files from data/work_hours folder
             datastore.getBulkWorkHours(WORK_HOURS_FOLDER);
 
         } catch (IOException e) {
@@ -44,7 +43,7 @@ public class Main {
 
         EmployeeReport report = new EmployeeReport(datastore.getEmployees());
         //TODO: Select option
-        System.out.println("Wages in Alphabetical Order:");
+        System.out.println("\nWages in Alphabetical Order:");
         report.printWagesAlphabetically();
 
         System.out.println("\nEmployees By Missed Hours:");

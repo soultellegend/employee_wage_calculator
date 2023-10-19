@@ -107,6 +107,7 @@ public class Datastore {
                     .filter(Files::isRegularFile)
                     .forEach(filePath -> {
                         try {
+                            System.out.printf("Loading work hours from: %s \n",filePath.toString());
                             getDailyWorkHours(filePath.toString());
                         } catch (IOException e) {
                             e.getMessage();
