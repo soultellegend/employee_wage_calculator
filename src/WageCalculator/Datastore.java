@@ -31,10 +31,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Path;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
+import java.util.stream.Stream;
+
+
 public class Datastore {
-    private List<Employee> employees = new ArrayList<>();
+    private final List<Employee> employees = new ArrayList<>();
 
     public void getCatalog(String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -51,7 +54,6 @@ public class Datastore {
                    5 - overtime wage
                 */
                 if (parts.length < 6)
-                    //TODO: Invalid data maybe log error etc.
                     continue;
                 String identifier = parts[0].trim();
                 String name = parts[1].trim();
@@ -102,25 +104,21 @@ public class Datastore {
 
 
     public void getBulkWorkHours(String folderPath) throws IOException {
-        try {
-            Files.walk(Paths.get(folderPath))
-                    .filter(Files::isRegularFile)
+        try (Stream<Path> paths = Files.walk(Paths.get(folderPath))) {
+            paths.filter(Files::isRegularFile)
                     .forEach(filePath -> {
                         try {
-                            System.out.printf("Loading work hours from: %s \n",filePath.toString());
+                            System.out.printf("Loading work hours from: %s \n", filePath.toString());
                             getDailyWorkHours(filePath.toString());
                         } catch (IOException e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                     });
-
         } catch (IOException err) {
-
             System.err.println("Error getting work hours: " + err.getMessage());
-
         }
-
     }
+
 
 
 }
