@@ -21,7 +21,9 @@
  * SOFTWARE.
  */
 
-import WageCalculator.*;
+import WageCalculator.Datastore;
+import WageCalculator.EmployeeReport;
+
 import java.io.IOException;
 
 
@@ -35,7 +37,6 @@ public class Main {
         try {
             datastore.getCatalog(EMPLOYEE_CATALOG_FILE);
             datastore.getBulkWorkHours(WORK_HOURS_FOLDER);
-
         } catch (IOException e) {
             System.err.println("Error reading the file: " + e.getMessage());
             return;
