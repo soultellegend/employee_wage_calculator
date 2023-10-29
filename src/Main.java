@@ -52,6 +52,5 @@ public class Main {
         System.out.println("\nTotal Amount to Pay:");
         report.printTotalAmountToPay();
 
-
     }
 }
